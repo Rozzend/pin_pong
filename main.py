@@ -2,11 +2,9 @@ from pygame import *
 from random import randint
 
 font.init()
-font1 = font.SysFont('Arial', 80)
-win = font1.render("YOU WIN!", True, (255, 255, 255))
-lose = font1.render('YOU LOSE', True, (180, 0, 0))
-
-font2 = font.SysFont('Arial', 36)
+font = font.Font(None, 35)
+lose1 = font.render("PLAYER 1 YOU LOSE", True, (255, 255, 255))
+lose2 = font.render('PLAYER 2 YOU LOSE', True, (255, 255, 255))
 
 class GameSprite(sprite.Sprite):
     def __init__(self, player_image, player_x, player_y, player_speed, wight, height):
@@ -75,13 +73,13 @@ while game:
 
        if ball.rect.x < 0:
            finish = True
-           #window.blit(lose, (200, 200))
-           #game_over = True
+           window.blit(lose1, (200, 200))
+           game_over = True
 
        if ball.rect.x > win_width:
            finish = True
-           #window.blit(lose, (200, 200))
-           #game_over = True
+           window.blit(lose2, (200, 200))
+           game_over = True
 
        racket1.reset()
        racket2.reset()

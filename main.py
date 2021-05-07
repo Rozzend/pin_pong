@@ -8,12 +8,6 @@ lose = font1.render('YOU LOSE', True, (180, 0, 0))
 
 font2 = font.SysFont('Arial', 36)
 
-score = 0
-goal = 99999999
-lost = 0
-max_lost = 99999
-life = 3
-
 class GameSprite(sprite.Sprite):
     def __init__(self, player_image, player_x, player_y, player_speed, wight, height):
         super().__init__()
@@ -38,7 +32,6 @@ class Player(GameSprite):
            self.rect.y -= self.speed
        if keys[K_s] and self.rect.y < win_height - 160:
            self.rect.y += self.speed
-
 
 win_width = 600
 win_height = 500
@@ -70,6 +63,25 @@ while game:
        window.blit(background,(0,0))
        racket1.update_l()
        racket2.update_r()
+       ball.rect.x += speed_x
+       ball.rect.y += speed_y
+
+       if sprite.collide_rect(racket1, ball) or sprite.collide_rect(racket2, ball):
+           speed_x *= -1
+           speed_y *= 1
+
+       if ball.rect.y > win_height-50 or ball.rect.y < 0:
+           speed_y *= -1
+
+       if ball.rect.x < 0:
+           finish = True
+           #window.blit(lose, (200, 200))
+           #game_over = True
+
+       if ball.rect.x > win_width:
+           finish = True
+           #window.blit(lose, (200, 200))
+           #game_over = True
 
        racket1.reset()
        racket2.reset()
